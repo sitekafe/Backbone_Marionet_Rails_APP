@@ -1,0 +1,48 @@
+html {
+	background-color: #f5f5f5;
+}
+
+.container {
+	width: 60%;
+	position: relative;
+	top: 150px;
+}
+
+.buffer {
+	height: 70px;
+}
+
+.panel-info {
+	background-color: lightblue;
+	height: 50px;
+	font: italic 25px sans-serif;
+	padding-left: 15px;
+	padding-top: 10px;
+}
+
+.text-left {
+	padding-left: 20px;
+	font: italic 18px sans-serif;
+	padding-top: 10px;
+}
+
+.text-right {
+	text-align: right;
+	padding-right: 15px;
+	font: italic 18px sans-serif;
+	padding-top: 10px;
+}
+.glyphicon-eye-open {
+	color:darkblue;
+}
+.glyphicon-pencil {
+	color:darkgreen;
+}
+
+.glyphicon-remove {
+	color: darkred;
+}
+#btn_add_user {
+	float: left;
+	margin-left: 7px;
+}
