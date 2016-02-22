@@ -15,3 +15,11 @@
 /log/*
 !/log/.keep
 /tmp
+.idea/.generators
+.idea/.name
+.idea/.rakeTasks
+.idea/Backbone_Marionet_Rails_APP.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
