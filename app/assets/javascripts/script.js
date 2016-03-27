@@ -29,9 +29,16 @@ App.Router = Backbone.Router.extend({
       },
 
       first: function () {
-        var userListView = new App.UserListView({collection: App.users});
+        var regionView = new App.Layout();
+        var filterView = new App.FilterView();
+        App.userListView = new App.UserListView({collection: App.users});
+        regionView.render();
+        regionView.filter.show(filterView);
+        regionView.list.show(App.userListView);
+
+        //var userListView = new App.UserListView({collection: App.users});
         //regionView.render();
-        App.main.show(userListView);
+        //App.main.show(userListView);
       },
 
       showUser: function (id) {
@@ -76,7 +83,33 @@ App.UserView = Backbone.Marionette.ItemView.extend({
         return false;
       }
     });
+//Filterview
+App.FilterView = Backbone.Marionette.ItemView.extend({
+      //tagName: 'div class="container"',
+      template: JST["templates/filter"],
+      events: {
+        'keyup #filter': 'filter'
+      },
+      filter: function(e){
+        App.userListView.filter = function (child, index, collection) {
+          var query = $(e.currentTarget).val();
+          var nameRegex = new RegExp(query, "i");
+          return nameRegex.test(child.get('first_name'));
+        };
+        App.userListView.render();
+      }
+});
 
+//LayoutView
+
+App.Layout = Backbone.Marionette.LayoutView.extend({
+  el: '#main',
+  template: JST["templates/index"],
+  regions: {
+    filter: '#filterdiv',
+    list: '#listview'
+  }
+});
 //collection
 
 App.UserListView = Backbone.Marionette.CompositeView.extend({
@@ -85,20 +118,7 @@ App.UserListView = Backbone.Marionette.CompositeView.extend({
       },
       childView : App.UserView,
       childViewContainer : '.container',
-      template: JST["templates/index"],
-      events: {
-        'keyup #filter': 'filter'
-      }
-      /*,
-      filter: function(e){
-        userListView.filter = function (child, index, collection) {
-          var query = $(e.currentTarget).val();
-          var nameRegex = new RegExp(query, "i");
-          return nameRegex.test(child.get('first_name'));
-        };
-        userListView.render();
-      }
-*/
+      template: JST["templates/list"],
     });
 //add Form
 App.AddView = Backbone.Marionette.ItemView.extend({
