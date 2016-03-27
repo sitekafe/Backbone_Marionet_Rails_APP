@@ -46,9 +46,11 @@ App.Router = Backbone.Router.extend({
 //Models&Collections
 
  App.User = Backbone.Model.extend({
-      //idAttribute: "_id",
+       idAttribute: "id",
+      initialize: function(){
+        this.set({'id':this.get('id')});
+      },
       defaults : {
-        //id: id,
         first_name  : '',
         last_name   : ''
       },
@@ -78,6 +80,9 @@ App.UserView = Backbone.Marionette.ItemView.extend({
 //collection
 
 App.UserListView = Backbone.Marionette.CompositeView.extend({
+       initialize : function(){
+        this.collection.fetch({reset:true});
+      },
       childView : App.UserView,
       childViewContainer : '.container',
       template: JST["templates/index"],
@@ -107,9 +112,7 @@ App.AddView = Backbone.Marionette.ItemView.extend({
   addUser : function (){
         var first_name  = $('#first_name'),
             last_name   = $('#last_name');
-            //uId = _.uniqueId();
         App.users.create({
-          //id: uId,
           first_name: first_name.val(),
           last_name : last_name.val()
         });
@@ -148,7 +151,7 @@ App.EditView = Backbone.Marionette.ItemView.extend({
   editName: function() {
     var first_name = $('#edit_first_name').val(),
         last_name  = $('#edit_last_name').val();
-  this.model.set({
+  this.model.save({
     first_name: first_name,
     last_name : last_name
   });
